@@ -46,23 +46,17 @@ Smart_Task_Analyzer/
 
 │-- tasks/
 
-  │-- views.py
- 
-  │-- urls.py
- 
-  │-- score.py
- 
-  │-- models.py
+│ │-- views.py
+│ │-- urls.py
+│ │-- score.py
+│ │-- models.py
 
 │-- frontend/
- 
-  │-- index.html
- 
-  │-- styles.css
- 
-  |-- frontend/
- 
-    │-- script.js
+
+│ │-- index.html
+│ │-- styles.css
+| |-- frontend/
+│   │-- script.js
 
 │-- manage.py
 
