@@ -105,53 +105,51 @@ We use JSON because:
 
 ---
 
-## 🔽 Installation & Run Guide
+## Installation & Run Guide
 
-### 1️⃣ Clone the project
+### Clone the project
 
 git clone <https://github.com/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER>
 
-### 2️⃣ Create and activate virtual environment
+### Create and activate virtual environment
 
 python -m venv venv
 
 venv\Scripts\activate
 
-### 3️⃣ Install requirements
+### Install requirements
 
 pip install -r requirements.txt
 
-### 4️⃣ Apply database migrations
+### Apply database migrations
 
 python manage.py makemigrations
 
 python manage.py migrate
 
-### 5️⃣ Collect static files
+### Collect static files
 
 python manage.py collectstatic
 
-### 6️⃣ Run the server
+### Run the server
 
 python manage.py runserver
 
-### 7️⃣ Open in browser
+### Open in browser
 
 http://127.0.0.1:8000
 
 ---
 
 ![App UI preview](docs/UI_Preview.png)
-
-
-## Assessment ready?
+<!-- ## Assessment ready?
 
 Yes! This project meets the task submission requirement by:
 ✔ Accepting JSON input
 ✔ Scoring and prioritizing
 ✔ Returning top 3 suggestions
 ✔ Displaying them in UI cards
-✔ Running without MATLAB/Python dependency in frontend
+✔ Running without MATLAB/Python dependency in frontend -->
 
 ---
 
@@ -159,47 +157,34 @@ Yes! This project meets the task submission requirement by:
 
 ```json
 [
-  {
-    "title": "Complete UI Integration",
-    "due_date": "2025-12-05",
-    "importance": 9,
-    "estimated_hours": 4.5,
-    "dependencies": []
+  { "title": "Buy groceries", 
+    "due_date": "2025-11-30", 
+    "importance": 3, 
+    "estimated_hours": 2 
   },
   { 
-    "title": "Build API", 
+    "title": "Prepare presentation", 
+    "due_date": "2025-12-01", 
+    "importance": 5, 
+    "estimated_hours": 6 
+  },
+  { 
+    "title": "Pay electricity bill", 
+    "due_date": "2025-11-29", 
+    "importance": 4, 
+    "estimated_hours": 1 
+  },
+  { 
+    "title": "Workout", 
     "due_date": "2025-12-02", 
-    "importance": 10, 
-    "estimated_hours": 3, 
-    "dependencies": [] 
+    "importance": 2, 
+    "estimated_hours": 1 
   },
   { 
-    "title": "Test API", 
-    "due_date": "2025-12-04", 
-    "importance": 6, 
-    "estimated_hours": 2.5, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Frontend Connect", 
-    "due_date": "2025-12-06", 
-    "importance": 8, 
-    "estimated_hours": 4, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Optimize Score Algo", 
-    "due_date": "2025-12-03", 
-    "importance": 9, 
-    "estimated_hours": 5, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Final Deployment Prep", 
-    "due_date": "2025-12-08", 
-    "importance": 7, 
-    "estimated_hours": 6.5, 
-    "dependencies": []
+    "title": "Plan weekend trip", 
+    "due_date": "2025-12-05", 
+    "importance": 4, 
+    "estimated_hours": 4 
   }
 ]
 ```
