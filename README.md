@@ -120,7 +120,7 @@ http://127.0.0.1:8000/
 
 ---
 
-![UI preview](assets/screenshot-1.png)
+![UI preview](assets/UI Preview.png)
 
 ---
 
