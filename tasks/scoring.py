@@ -68,3 +68,4 @@ def calculate_score(task):
 
     # Return scaled score for readability
     return round(score * 100, 3)
+

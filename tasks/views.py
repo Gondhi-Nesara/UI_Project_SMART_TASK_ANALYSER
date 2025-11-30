@@ -78,3 +78,4 @@ def suggest_tasks(request):
     suggestions = [s["explanation"] for s in top3]
 
     return Response({"top": top3, "suggestions": suggestions})
+
