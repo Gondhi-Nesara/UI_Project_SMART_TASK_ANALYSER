@@ -163,7 +163,7 @@ http://127.0.0.1:8000
 
 ---
 
-![App UI preview](docs/UI_Preview.png)
+![App UI preview](docs/UI_Previeww.png)
 <!-- ## Assessment ready?
 
 Yes! This project meets the task submission requirement by:
