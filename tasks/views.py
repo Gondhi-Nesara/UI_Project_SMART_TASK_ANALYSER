@@ -41,7 +41,7 @@ def analyze_tasks(request):
 
         score = calculate_score(saved)
 
-        explanation = f"📅 Due: {saved.due_date} | ⭐ Importance: {saved.importance} | ⏱ Effort: {saved.estimated_hours}h | 🔗 Dependencies: {len(deps)} | 🧮 Score: {score}"
+        explanation = f"Due: {saved.due_date} | Importance: {saved.importance} | Effort: {saved.estimated_hours}h | Dependencies: {len(deps)} | Score: {score}"
 
         result.append({
             "id": saved.id,
@@ -70,7 +70,7 @@ def suggest_tasks(request):
             "importance": t.importance,
             "estimated_hours": t.estimated_hours,
             "score": score,
-            "explanation": f"📅 Due {t.due_date.isoformat()}, ⭐ importance {t.importance}, ⏱ effort {t.estimated_hours}h, 🧮 score {score}"
+            "explanation": f"Due {t.due_date.isoformat()}, importance {t.importance}, effort {t.estimated_hours}h, score {score}"
         })
 
     scored.sort(key=lambda x: x["score"], reverse=True)
