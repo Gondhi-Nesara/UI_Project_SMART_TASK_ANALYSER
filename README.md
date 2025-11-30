@@ -39,18 +39,19 @@ Smart_Task_Analyzer/
 │ │-- urls.py
 │ │-- wsgi.py
 │ │-- asgi.py
-│
+
 │-- tasks/
 │ │-- views.py
 │ │-- urls.py
 │ │-- score.py
 │ │-- models.py
-│
+
 │-- frontend/
 │ │-- index.html
 │ │-- styles.css
-│ │-- script.js
-│
+| |-- frontend/
+│   │-- script.js
+
 │-- manage.py
 │-- requirements.txt
 │-- README.md
@@ -134,14 +135,14 @@ http://127.0.0.1:8000/
 - Designed for beginners for easy understanding + interview use
 
 ---
-
+<!-- 
 ## Author
 
 Gondhi Nesara
-Electronics and Communication Engineering
-JSS Academy of Technical Education
+Electronics and Communication Engineering Graduate
+JSS Academy of Technical Education, Bengaluru
 
----
+--- -->
 
 ## Repository
 
