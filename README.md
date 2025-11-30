@@ -1,5 +1,5 @@
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Django](https://img.shields.io/badge/Backend-Django%205.2-blue?style=for-the-badge)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER)
 
 # SMART TASKS ANALYZER
