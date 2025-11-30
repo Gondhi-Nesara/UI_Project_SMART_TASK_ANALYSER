@@ -7,11 +7,11 @@ async function analyzeTasks() {
   try {
     tasks = JSON.parse(input);
   } catch {
-    alert("❌ Invalid JSON!");
+    alert("Invalid JSON!");
     return;
   }
 
-  resultsBox.innerHTML = "⏳ Analyzing...";
+  resultsBox.innerHTML = "Analyzing";
 
   try {
     const res = await fetch("/api/tasks/analyze/", {
@@ -34,7 +34,7 @@ async function analyzeTasks() {
 }
 
 async function getSuggestions() {
-  resultsBox.innerHTML = "⏳ Loading suggestions...";
+  resultsBox.innerHTML = "Loading";
 
   try {
     const res = await fetch("/api/tasks/suggest/");
@@ -57,10 +57,10 @@ function displayResults(tasks) {
     resultsBox.innerHTML += `
       <div class="task-card">
         <h3>${t.title}</h3>
-        <p>📅 Due: ${t.due_date}</p>
-        <p>⭐ Importance: ${t.importance}</p>
-        <p>⏱ Effort: ${t.estimated_hours} hrs</p>
-        <p>🧮 Score: <b>${t.score}</b></p>
+        <p> Due: ${t.due_date}</p>
+        <p> Importance: ${t.importance}</p>
+        <p> Effort: ${t.estimated_hours} hrs</p>
+        <p> Score: <b>${t.score}</b></p>
         
       </div>
     `;
