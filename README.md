@@ -45,6 +45,7 @@ Smart_Task_Analyzer/
 
 │ │-- asgi.py
 
+
 │-- tasks/
 
 │ │-- views.py
@@ -55,6 +56,7 @@ Smart_Task_Analyzer/
 
 │ │-- models.py
 
+
 │-- frontend/
 
 │ │-- index.html
@@ -62,7 +64,9 @@ Smart_Task_Analyzer/
 │ │-- styles.css
 
 | |-- frontend/
+
 │   │-- script.js
+
 
 │-- manage.py
 
