@@ -126,15 +126,6 @@ http://127.0.0.1:8000/
 ![UI preview](docs/UI_Preview.png)
 
 ---
-
-## Notes
-
-- Ensure static file paths are properly configured in settings.py
-- API endpoints must be accessed while server is running
-- JSON must be valid array format
-- Designed for beginners for easy understanding + interview use
-
----
 <!-- 
 ## Author
 
@@ -143,12 +134,12 @@ Electronics and Communication Engineering Graduate
 JSS Academy of Technical Education, Bengaluru
 
 --- -->
-
+<!-- 
 ## Repository
 
 Managed on GitHub
 
----
+--- -->
 
 ## Future Scope
 
@@ -165,3 +156,12 @@ If you face issues:
 - Static files not loading → Check STATICFILES_DIRS
 - Functions not working → Open via server root, not static folder
 - 404 errors → Verify urls.py paths
+
+---
+
+## Notes
+
+- Ensure static file paths are properly configured in settings.py
+- API endpoints must be accessed while server is running
+- JSON must be valid array format
+- Designed for beginners for easy understanding + interview use
