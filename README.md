@@ -4,7 +4,7 @@
 
 # SMART TASK ANALYZER
 
-A lightweight task prioritization tool powered by **Django REST backend** and **Vanilla JavaScript frontend**.  
+A lightweight task prioritization tool powered by **Django REST backend** and **JavaScript frontend**.  
 Designed for fast analysis of task lists and intelligent ranking based on urgency, effort, and importance.
 
 ---
@@ -34,6 +34,7 @@ Designed for fast analysis of task lists and intelligent ranking based on urgenc
 ## 📁 Project Structure
 
 Smart_Task_Analyzer/
+
 │-- backend/
 │ │-- settings.py
 │ │-- urls.py
@@ -53,7 +54,9 @@ Smart_Task_Analyzer/
 │   │-- script.js
 
 │-- manage.py
+
 │-- requirements.txt
+
 │-- README.md
 
 ---
