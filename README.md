@@ -1,181 +1,222 @@
+# SMART TASKS ANALYZER
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER)
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
-
-# SMART TASK ANALYZER
-
-A lightweight task prioritization tool powered by **Django REST backend** and **JavaScript frontend**.  
-Designed for fast analysis of task lists and intelligent ranking based on urgency, effort, and importance.
+A modern internship assessment project built for **Singularium Internship Task Planning**, designed to **analyze, score, and prioritize tasks intelligently** using a weighted algorithm.
 
 ---
 
-## Features
+## What It Does
 
-- Paste task list as JSON input
-- Smart scoring and prioritization algorithm
-- Get **Top 3 tasks for today**
-- Clean card-based UI output
-- No MATLAB, No Python frontend, No heavy libraries
-- Minimal, fast and beginner-friendly JavaScript logic
+- Accepts **a list of tasks in JSON format**
+- Calculates a **priority score** for each task based on:
+  - **Due date urgency**
+  - **Importance level (1–10)**
+  - **Estimated effort in hours**
+  - **Task dependencies**
+- Displays results as **animated professional task cards**
+- Provides **Top 3 prioritized suggestions** instantly
 
----
-
-## Tech Stack
-
-| Layer | Technology |
-|------|------------|
-| Backend | :contentReference[oaicite:0]{index=0} + :contentReference[oaicite:1]{index=1} |
-| Frontend | :contentReference[oaicite:2]{index=2} + :contentReference[oaicite:3]{index=3} + :contentReference[oaicite:4]{index=4} |
-| Database | :contentReference[oaicite:5]{index=5} |
-| Version Control | :contentReference[oaicite:6]{index=6} + :contentReference[oaicite:7]{index=7} |
+This project currently runs **locally** on your system using Django — others can test it by running it on their machine, or it can be deployed later to a public server.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
-Smart_Task_Analyzer/
+📦 Smart_Task_Analyzer
 
-│-- backend/
+┣ 📂 backend
 
-        │ │-- settings.py
+        ┃ ┣ settings.py
 
-        │ │-- urls.py
+        ┃ ┣ urls.py
 
-        │ │-- wsgi.py
+        ┃ ┣ wsgi.py
 
-        │ │-- asgi.py
+        ┃ ┣ asgi.py
 
-│-- frontend/
+┣ 📂 frontend
 
-        │ │-- index.html
+        ┃ ┣ index.html
 
-        │ │-- styles.css
+        ┃ ┣ styles.css
 
-        | |-- frontend/
-        │ |  │-- script.js
+        ┃ ┣ script.js
 
-│-- tasks/
+┣ 📂 tasks
 
-        │ │-- views.py
+        ┃ ┣ models.py
 
-        │ │-- urls.py
+        ┃ ┣ views.py
 
-        │ │-- score.py
+        ┃ ┣ urls.py
 
-        │ │-- models.py
+        ┃ ┣ scoring.py
 
-│-- manage.py
+┣ manage.py
 
-│-- requirements.txt
+┣ requirements.txt
 
-│-- README.md
-
----
-
-## Setup and Run
-
-### Clone Repository
-
-git clone <https://github.com/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER>
-
-cd Smart_Task_Analyzer
-
-### 2️⃣ Create and Activate Virtual Environment
-
-python -m venv venv
-
-venv\Scripts\activate (Windows)
-
-### 3️⃣ Install Dependencies
-
-pip install -r requirements.txt
-
-
-### 4️⃣ Run Server
-
-python manage.py runserver
-
-
-### 5️⃣ Open in Browser
-
-http://127.0.0.1:8000/
+┗ README.md
 
 ---
 
-##  Input JSON Format Example
+## Why JSON Format?
+
+We use JSON because:
+
+- It allows users to **input multiple tasks at once**
+- It is **structured, machine-readable, and easy to scale**
+- It can be directly processed by the backend algorithm
+- It supports dynamic fields like:
+  - dependencies (list)
+  - hours, importance, dates, etc.
+
+---
+
+## Example JSON task format:
 
 ```json
 [
   {
-    "title": "Finish project documentation",
-    "due_date": "2025-12-01",
-    "importance": 5,
-    "estimated_hours": 3
+    "title": "Complete UI Integration",
+    "due_date": "2025-12-05",
+    "importance": 9,
+    "estimated_hours": 4.5,
+    "dependencies": []
+  }
+]
+```
+
+---
+
+## How Task Prioritization Works
+
+Each task is scored using a weighted formula:
+
+| Factor | Meaning |
+|--------|---------|
+| due_date | Closer due dates → higher priority |
+| importance | Higher value (1–10) → more important |
+| estimated_hours | Smaller hours → faster/efficient task |
+| dependencies | Tasks needing others first → lower score |
+
+The backend algorithm processes those and sorts the cards so that highest priority (highest score) comes first.
+
+---
+
+## 🔽 Installation & Run Guide
+
+### 1️⃣ Clone the project
+
+git clone <https://github.com/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER>
+
+### 2️⃣ Create and activate virtual environment
+
+python -m venv venv
+
+venv\Scripts\activate
+
+### 3️⃣ Install requirements
+
+pip install -r requirements.txt
+
+### 4️⃣ Apply database migrations
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+### 5️⃣ Collect static files
+
+python manage.py collectstatic
+
+### 6️⃣ Run the server
+
+python manage.py runserver
+
+### 7️⃣ Open in browser
+
+http://127.0.0.1:8000
+
+---
+
+## 🛡 Privacy Note
+
+This app does NOT store any user identity
+
+Local database only stores task details you input
+
+Nothing is shared with others unless the project is deployed publicly
+
+Even Top 3 suggestions are computed only from your local inputs
+
+---
+
+## 💡 Future Scope
+
+✅ Add JWT or session-based user auth
+
+✅ Store tasks per user
+
+✅ Deploy to internet servers (Render / AWS / PythonAnywhere)
+
+✅ Improve UI with React or dashboard upgrades
+
+---
+
+## 🏁 Sample Dataset (5 tasks)
+
+[
+  { 
+    "title": "Build API", 
+    "due_date": "2025-12-02", 
+    "importance": 10, 
+    "estimated_hours": 3, 
+    "dependencies": [] 
   },
-  {
-    "title": "Prepare for internship interview",
-    "due_date": "2025-11-30",
-    "importance": 4,
-    "estimated_hours": 2
+  { 
+    "title": "Test API", 
+    "due_date": "2025-12-04", 
+    "importance": 6, 
+    "estimated_hours": 2.5, 
+    "dependencies": [] 
   },
-  {
-    "title": "Team sync-up call",
-    "due_date": "2025-11-30",
-    "importance": 3,
-    "estimated_hours": 1
+  { 
+    "title": "Frontend Connect", 
+    "due_date": "2025-12-06", 
+    "importance": 8, 
+    "estimated_hours": 4, 
+    "dependencies": [] 
+  },
+  { 
+    "title": "Optimize Score Algo", 
+    "due_date": "2025-12-03", 
+    "importance": 9, 
+    "estimated_hours": 5, 
+    "dependencies": [] 
+  },
+  { 
+    "title": "Final Deployment Prep", 
+    "due_date": "2025-12-08", 
+    "importance": 7, 
+    "estimated_hours": 6.5, 
+    "dependencies": [] 
   }
 ]
 
-```
 ---
 
-## Output
-
-- Analyzed tasks return sorted with a smart score
-- Top 3 tasks are suggested via the /suggest/ API
-- Results displayed in clean UI cards
-
----
-
-![UI preview](docs/UI_Preview.png)
-
----
-<!-- 
-## Author
+## © Built By
 
 Gondhi Nesara
-Electronics and Communication Engineering Graduate
+
+Electronics and Communication Engineering
+
 JSS Academy of Technical Education, Bengaluru
 
---- -->
-<!-- 
-## Repository
-
-Managed on GitHub
-
---- -->
-
-## Future Scope
-
-- AI-based suggestion improvement
-- Mobile app extension
-- Integration with browsers/task managers
-- Hardware/SoC acceleration (VLSI path)
+For Singularium Internship Assessment 2025
 
 ---
 
-## Support
+## 💌 Need Help?
 
-If you face issues:
-- Static files not loading → Check STATICFILES_DIRS
-- Functions not working → Open via server root, not static folder
-- 404 errors → Verify urls.py paths
-
----
-
-## Notes
-
-- Ensure static file paths are properly configured in settings.py
-- API endpoints must be accessed while server is running
-- JSON must be valid array format
-- Designed for beginners for easy understanding + interview use
+Feel free to open an issue or connect for improvements or deployment support!
