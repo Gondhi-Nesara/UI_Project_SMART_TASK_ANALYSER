@@ -1,56 +1,67 @@
+const resultsBox = document.getElementById("results");
+
 async function analyzeTasks() {
   const input = document.getElementById("taskInput").value;
   let tasks;
+
   try {
     tasks = JSON.parse(input);
   } catch {
-    alert("❌ Invalid JSON, fix it first!");
+    alert("❌ Invalid JSON!");
     return;
   }
 
+  resultsBox.innerHTML = "⏳ Analyzing...";
+
   try {
-    const response = await fetch("/api/tasks/analyze/", {
+    const res = await fetch("/api/tasks/analyze/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tasks)
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(tasks),
     });
 
-    const data = await response.json();
-    if (!response.ok) {
-      alert("❌ Error from backend: " + (data.error || "Unknown error"));
-    } else {
-      displayResults(data);
+    const data = await res.json();
+    if (!res.ok) {
+      alert("Backend Error");
+      resultsBox.innerHTML = "";
+      return;
     }
-  } catch (err) {
-    alert("❌ Could not connect to server!");
-    console.error(err);
+    displayResults(data);
+  } catch {
+    alert("Server not running!");
+    resultsBox.innerHTML = "";
   }
 }
 
 async function getSuggestions() {
+  resultsBox.innerHTML = "⏳ Loading suggestions...";
+
   try {
-    const response = await fetch("/api/tasks/suggest/");
-    const data = await response.json();
-    if (!response.ok) {
-      alert("❌ Failed to get suggestions!");
-    } else {
-      displayResults(data.top);
-      console.log("🔍 Suggestions:", data.suggestions);
+    const res = await fetch("/api/tasks/suggest/");
+    const data = await res.json();
+    if (!res.ok) {
+      alert("Failed to get suggestions");
+      resultsBox.innerHTML = "";
+      return;
     }
-  } catch (err) {
-    alert("❌ Could not connect to server!");
-    console.error(err);
+    displayResults(data.top || []);
+  } catch {
+    alert("Server not running!");
+    resultsBox.innerHTML = "";
   }
 }
 
 function displayResults(tasks) {
-  const output = document.getElementById("results");
-  output.innerHTML = "";
-  tasks.forEach(task => {
-    output.innerHTML += `
+  resultsBox.innerHTML = "";
+  tasks.forEach(t => {
+    resultsBox.innerHTML += `
       <div class="task-card">
-        <h3>${task.title}</h3>
-        <p>${task.explanation}</p>
+        <h3>${t.title}</h3>
+        <p>📅 Due: ${t.due_date}</p>
+        <p>⭐ Importance: ${t.importance}</p>
+        <p>⏱ Effort: ${t.estimated_hours} hrs</p>
+        <p>🧮 Score: <b>${t.score}</b></p>
+        
       </div>
     `;
   });
