@@ -1,5 +1,5 @@
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi-Nesara/Smart_Task_Analyzer)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 
 # SMART TASK ANALYZER
