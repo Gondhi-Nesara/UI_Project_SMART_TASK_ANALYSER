@@ -82,6 +82,41 @@ We use JSON because:
     "importance": 9,
     "estimated_hours": 4.5,
     "dependencies": []
+  },
+  { 
+    "title": "Build API", 
+    "due_date": "2025-12-02", 
+    "importance": 10, 
+    "estimated_hours": 3, 
+    "dependencies": [] 
+  },
+  { 
+    "title": "Test API", 
+    "due_date": "2025-12-04", 
+    "importance": 6, 
+    "estimated_hours": 2.5, 
+    "dependencies": [] 
+  },
+  { 
+    "title": "Frontend Connect", 
+    "due_date": "2025-12-06", 
+    "importance": 8, 
+    "estimated_hours": 4, 
+    "dependencies": [] 
+  },
+  { 
+    "title": "Optimize Score Algo", 
+    "due_date": "2025-12-03", 
+    "importance": 9, 
+    "estimated_hours": 5, 
+    "dependencies": [] 
+  },
+  { 
+    "title": "Final Deployment Prep", 
+    "due_date": "2025-12-08", 
+    "importance": 7, 
+    "estimated_hours": 6.5, 
+    "dependencies": []
   }
 ]
 ```
@@ -160,50 +195,6 @@ Store tasks per user
 Deploy to internet servers (Render / AWS / PythonAnywhere)
 
 Improve UI with React or dashboard upgrades
-
----
-
-## Sample Dataset (5 tasks)
-
-```json
-[
-  { 
-    "title": "Build API", 
-    "due_date": "2025-12-02", 
-    "importance": 10, 
-    "estimated_hours": 3, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Test API", 
-    "due_date": "2025-12-04", 
-    "importance": 6, 
-    "estimated_hours": 2.5, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Frontend Connect", 
-    "due_date": "2025-12-06", 
-    "importance": 8, 
-    "estimated_hours": 4, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Optimize Score Algo", 
-    "due_date": "2025-12-03", 
-    "importance": 9, 
-    "estimated_hours": 5, 
-    "dependencies": [] 
-  },
-  { 
-    "title": "Final Deployment Prep", 
-    "due_date": "2025-12-08", 
-    "importance": 7, 
-    "estimated_hours": 6.5, 
-    "dependencies": [] 
-  }
-]
-```
 
 ---
 <!-- 
