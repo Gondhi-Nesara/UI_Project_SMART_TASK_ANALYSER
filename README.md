@@ -36,10 +36,11 @@ Designed for fast analysis of task lists and intelligent ranking based on urgenc
 Smart_Task_Analyzer/
 
 │-- backend/
-│ │-- settings.py
+
+            │ │-- settings.py
 
             │ │-- urls.py
-            
+
             │ │-- wsgi.py
 
             │ │-- asgi.py
