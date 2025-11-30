@@ -62,11 +62,13 @@ Smart_Task_Analyzer/
 ### Clone Repository
 
 git clone <https://github.com/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER>
+
 cd Smart_Task_Analyzer
 
 ### 2️⃣ Create and Activate Virtual Environment
 
 python -m venv venv
+
 venv\Scripts\activate (Windows)
 
 ### 3️⃣ Install Dependencies
