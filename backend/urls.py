@@ -7,8 +7,6 @@ from django.shortcuts import render
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/tasks/', include('tasks.urls')),
-
-    # ✅ Load UI at home
     path('', lambda request: render(request, "index.html")),
 ]
 

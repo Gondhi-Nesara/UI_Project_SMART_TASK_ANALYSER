@@ -61,9 +61,10 @@ TEMPLATES = [
 # Static files (CSS / JS)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "frontend",   # serve /static/<file> from frontend/
+    BASE_DIR / "frontend",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATIC_ROOT = BASE_DIR / "static"
 
 # Internationalization / timezone
 LANGUAGE_CODE = 'en-us'
