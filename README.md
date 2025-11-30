@@ -1,5 +1,6 @@
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![Django](https://img.shields.io/badge/Backend-Django%205.2-blue?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER)
 
 # SMART TASKS ANALYZER
 
@@ -38,33 +39,6 @@ This project currently runs **locally** on your system using Django — others c
 
 ---
 
-## Project Structure
-
-Smart_Task_Analyzer
- ┣ backend
- ┃ ┣ settings.py
- ┃ ┣ urls.py
- ┃ ┣ wsgi.py
- ┃ ┗ asgi.py
- ┣ tasks
- ┃ ┣ models.py
- ┃ ┣ views.py
- ┃ ┣ urls.py
- ┃ ┣ serializers.py
- ┃ ┣ scoring.py
- ┃ ┗ tests.py
- ┣ frontend
- ┃ ┣ index.html
- ┃ ┣ styles.css
- ┃ ┗ script.js
- ┣ static
- ┣ db.sqlite3
- ┣ manage.py
- ┣ requirements.txt
- ┗ README.md
-
----
-
 ## Tech stack
 
 **Frontend:** HTML, CSS, JavaScript
@@ -92,6 +66,26 @@ The backend algorithm processes those and sorts the cards so that highest priori
 
 ---
 
+## Algorithm Explanation
+
+The Smart Task Analyzer prioritizes tasks using a custom weighted scoring algorithm that balances urgency, importance, ease of completion, and dependency constraints. The goal is to surface the most impactful actions for a user’s limited time window.
+
+Each task is represented in JSON with structured attributes (title, due date, importance, estimated hours, dependencies). JSON is used because it ensures predictable structure, easy parsing, and scalability when submitting multiple tasks at once. The system expects a list of task objects so it can compare them uniformly and compute a priority order through objective numerical scoring.
+
+The algorithm first normalizes deadlines into a “days remaining” metric. Urgency is computed as the inverse of days left — meaning tasks due sooner generate a higher urgency value. Overdue tasks receive a 1.6× boost since they are already past deadline and require immediate attention. Importance is scaled between 1–10, normalized as importance/10. Effort is treated as a “quick-win factor” using 1/(hours + 0.1), favoring tasks that require less time and can be completed faster. Dependencies are interpreted as blockers — if a task depends on others, its score is penalized since it can’t begin until prerequisites are completed. The penalty is a fractional value weighted by 0.1 using dep/(dep+1), reducing score impact smoothly instead of harsh drops.
+
+Weighted factors:
+
+- Urgency → 0.4
+
+- Importance → 0.35
+
+- Effort factor → 0.15
+
+- Dependency penalty → 0.1
+
+After computing weighted values, the final score is scaled for readability. Higher score means higher priority. The API returns sorted results so the frontend can display them in descending order. For “Top 3”, the same scoring method runs on stored tasks in SQLite and selects the highest-ranked ones without disclosing user identity, maintaining assignment simplicity and local privacy isolation. The scoring ensures efficient planning by pushing users toward urgent and important tasks they can finish quickly, while avoiding dependency-blocked items until they become actionable.
+
 ## Why JSON Format?
 
 We use JSON because:
@@ -105,37 +99,65 @@ We use JSON because:
 
 ---
 
+
+## Project Structure
+
+Smart_Task_Analyzer
+ ┣ backend
+ ┃ ┣ settings.py
+ ┃ ┣ urls.py
+ ┃ ┣ wsgi.py
+ ┃ ┗ asgi.py
+ ┣ tasks
+ ┃ ┣ models.py
+ ┃ ┣ views.py
+ ┃ ┣ urls.py
+ ┃ ┣ serializers.py
+ ┃ ┣ scoring.py
+ ┃ ┗ tests.py
+ ┣ frontend
+ ┃ ┣ index.html
+ ┃ ┣ styles.css
+ ┃ ┗ script.js
+ ┣ static
+ ┣ db.sqlite3
+ ┣ manage.py
+ ┣ requirements.txt
+ ┗ README.md
+
+---
+
 ## Installation & Run Guide
 
-### Clone the project
+### - Clone the project
 
 git clone <https://github.com/Gondhi-Nesara/UI_Project_SMART_TASK_ANALYSER>
 
-### Create and activate virtual environment
+### - Create and activate virtual environment
 
 python -m venv venv
 
 venv\Scripts\activate
 
-### Install requirements
+### - Install requirements
 
 pip install -r requirements.txt
 
-### Apply database migrations
+### - Apply database migrations
 
 python manage.py makemigrations
 
 python manage.py migrate
 
-### Collect static files
+### - Collect static files
 
 python manage.py collectstatic
 
-### Run the server
+### - Run the server
 
 python manage.py runserver
 
-### Open in browser
+### - Open in browser
 
 http://127.0.0.1:8000
 
