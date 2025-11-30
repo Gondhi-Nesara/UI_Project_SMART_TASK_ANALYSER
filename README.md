@@ -37,9 +37,12 @@ Smart_Task_Analyzer/
 
 │-- backend/
 │ │-- settings.py
-│ │-- urls.py
-│ │-- wsgi.py
-│ │-- asgi.py
+
+            │ │-- urls.py
+            
+            │ │-- wsgi.py
+
+            │ │-- asgi.py
 
 │-- tasks/
 │ │-- views.py
