@@ -1,50 +1,80 @@
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from datetime import datetime
-from .scoring import calculate_task_score
+from .models import Task
+from .scoring import calculate_score
 
-@csrf_exempt
-def analyze_tasks(request):
-    if request.method == "POST":
+def _days_until(due_date):
+    today = datetime.utcnow().date()
+    return (due_date - today).days
+
+@api_view(['POST'])
+def analyze_tasks(request):   
+    data = request.data
+    if not isinstance(data, list):
+        return Response({"error": "Request body must be a JSON list of tasks"}, status=status.HTTP_400_BAD_REQUEST)
+
+    Task.objects.all().delete()
+
+    result = []
+    for i, t in enumerate(data):
+        title = t.get("title", f"Task {i+1}")
+        due = t.get("due_date")
+        importance = int(t.get("importance", 5))
+        hours = float(t.get("estimated_hours", 1.0))
+        deps = t.get("dependencies", [])
+
+        due_date = None
         try:
-            tasks = json.loads(request.body)
+            due_date = datetime.strptime(due, "%Y-%m-%d").date()
+        except:
+            due_date = datetime.utcnow().date()
 
-            for task in tasks:
-                if isinstance(task.get("due_date"), str):
-                    task["due_date"] = datetime.strptime(task["due_date"], "%Y-%m-%d").date()
+        saved = Task.objects.create(
+            title=title,
+            due_date=due_date,
+            importance=importance,
+            estimated_hours=hours,
+            dependencies=deps
+        )
 
-                task["importance"] = task.get("importance", 5)
-                task["estimated_hours"] = task.get("estimated_hours", 1)
-                task["dependencies"] = task.get("dependencies", [])
+        score = calculate_score(saved)
 
-                task["score"] = calculate_task_score(task)
+        explanation = f"📅 Due: {saved.due_date} | ⭐ Importance: {saved.importance} | ⏱ Effort: {saved.estimated_hours}h | 🔗 Dependencies: {len(deps)} | 🧮 Score: {score}"
 
-            tasks.sort(key=lambda x: x["score"], reverse=True)
+        result.append({
+            "id": saved.id,
+            "title": saved.title,
+            "due_date": saved.due_date.isoformat(),
+            "importance": saved.importance,
+            "estimated_hours": saved.estimated_hours,
+            "score": score,
+            "explanation": explanation
+        })
 
-            for task in tasks:
-                task["due_date"] = task["due_date"].strftime("%Y-%m-%d")
+    result.sort(key=lambda x: x["score"], reverse=True)
+    return Response(result)
 
-            return JsonResponse(tasks, safe=False)
 
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
-
+@api_view(['GET'])
 def suggest_tasks(request):
-    sample = [
-        {"title": "Complete hardware design", "due_date": "2025-11-30", "importance": 9, "estimated_hours": 3, "dependencies": []},
-        {"title": "Review API logic", "due_date": "2025-11-29", "importance": 7, "estimated_hours": 1, "dependencies": []},
-        {"title": "Fix scoring module", "due_date": "2025-11-28", "importance": 8, "estimated_hours": 2, "dependencies": []},
-    ]
+    tasks = Task.objects.all()
+    scored = []
+    for t in tasks:
+        score = calculate_score(t)
+        scored.append({
+            "id": t.id,
+            "title": t.title,
+            "due_date": t.due_date.isoformat(),
+            "importance": t.importance,
+            "estimated_hours": t.estimated_hours,
+            "score": score,
+            "explanation": f"📅 Due {t.due_date.isoformat()}, ⭐ importance {t.importance}, ⏱ effort {t.estimated_hours}h, 🧮 score {score}"
+        })
 
-    for task in sample:
-        if isinstance(task["due_date"], str):
-            task["due_date"] = datetime.strptime(task["due_date"], "%Y-%m-%d").date()
-        task["score"] = calculate_task_score(task)
+    scored.sort(key=lambda x: x["score"], reverse=True)
+    top3 = scored[:3]
+    suggestions = [s["explanation"] for s in top3]
 
-    sample.sort(key=lambda x: x["score"], reverse=True)
-
-    for task in sample:
-        task["due_date"] = task["due_date"].strftime("%Y-%m-%d")
-
-    return JsonResponse(sample[:3], safe=False)
+    return Response({"top": top3, "suggestions": suggestions})

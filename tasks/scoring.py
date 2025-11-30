@@ -1,31 +1,70 @@
-from datetime import datetime, date
+from datetime import date, datetime
 
-def calculate_task_score(task):
-    score = 0
-    today = date.today()
+# Configurable weights (easy to tweak)
+WEIGHTS = {
+    'urgency': 0.4,
+    'importance': 0.35,
+    'effort': 0.15,
+    'dependencies': 0.1
+}
 
-    # Convert due date
-    due_date = task["due_date"]
+def _days_until(due_date):
     if isinstance(due_date, str):
-        due_date = datetime.strptime(due_date, "%Y-%m-%d").date()
+        try:
+            due = datetime.strptime(due_date, "%Y-%m-%d").date()
+        except:
+            return 30
+    else:
+        due = due_date
+    return (due - date.today()).days
 
-    days_until_due = (due_date - today).days
+def calculate_score(task):
+    # return task.importance * 10 - task.hours * 2
+    """
+    Input: task can be either a Task model instance OR a dict with fields:
+           {'due_date': ..., 'importance': int, 'estimated_hours': float, 'dependencies': list}
+    Output: numeric score (higher = higher priority)
+    """
+    # Normalize properties
+    if hasattr(task, 'due_date'):
+        days = _days_until(task.due_date)
+        importance = getattr(task, 'importance', 5)
+        hours = getattr(task, 'estimated_hours', 1)
+        dependencies = getattr(task, 'dependencies', []) or []
+    else:
+        # dict-like
+        days = _days_until(task.get('due_date'))
+        importance = task.get('importance', 5)
+        hours = task.get('estimated_hours', 1)
+        dependencies = task.get('dependencies', []) or []
 
-    # 1. Urgency factor
-    if days_until_due < 0:
-        score += 100  # Overdue
-    elif days_until_due <= 3:
-        score += 50   # Almost due
+    # Urgency score: inverse of days (smaller days => larger score)
+    urgency = 1 / (abs(days) + 1)
+    # boost for past-due
+    if days < 0:
+        urgency *= 1.6
 
-    # 2. Importance weight
-    score += task.get("importance", 5) * 5
+    # Importance normalized 0..1
+    importance_score = importance / 10.0
 
-    # 3. Effort quick win bonus
-    if task.get("estimated_hours", 1) < 2:
-        score += 10
+    # Effort / quick-win: smaller hours => higher quick-win
+    effort_score = 1.0 / (hours + 0.1)
 
-    # 4. Dependency penalty if present
-    if task.get("dependencies"):
-        score -= 20  # Slight decrease until dependencies are finished
+    # Dependencies: more tasks blocked by this one -> more important (we'll treat dependencies length as blocking_count if provided)
+    # If dependencies list describes tasks this one depends on, treat as penalty instead.
+    # Convention used in this solution: if dependencies > 0 -> this task is blocked by others -> penalize.
+    dep_penalty = 0
+    if isinstance(dependencies, (list, tuple)) and len(dependencies) > 0:
+        # penalize because this task can't be completed until dependencies are resolved
+        dep_penalty = len(dependencies)  # number of dependencies
 
-    return score
+    # Compose final score using weights
+    score = (
+        WEIGHTS['urgency'] * urgency +
+        WEIGHTS['importance'] * importance_score +
+        WEIGHTS['effort'] * effort_score -
+        WEIGHTS['dependencies'] * (dep_penalty / (dep_penalty + 1))
+    )
+
+    # Return scaled score for readability
+    return round(score * 100, 3)
