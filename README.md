@@ -1,3 +1,6 @@
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Gondhi_Nesara/UI_Project_SMART_TASK_ANALYZER)
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+
 # SMART TASKS ANALYZER
 
 Smart Task Analyzer is a lightweight prioritization engine that helps users organize tasks intelligently and focus on what matters most.
@@ -137,6 +140,9 @@ python manage.py runserver
 http://127.0.0.1:8000
 
 ---
+
+![App UI preview](docs/UI_Preview.png)
+
 
 ## Assessment ready?
 
