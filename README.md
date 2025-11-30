@@ -139,7 +139,7 @@ http://127.0.0.1:8000
 
 ---
 
-## 🛡 Privacy Note
+## Privacy Note
 
 This app does NOT store any user identity
 
@@ -151,20 +151,21 @@ Even Top 3 suggestions are computed only from your local inputs
 
 ---
 
-## 💡 Future Scope
+## Future Scope
 
-✅ Add JWT or session-based user auth
+Add JWT or session-based user auth
 
-✅ Store tasks per user
+Store tasks per user
 
-✅ Deploy to internet servers (Render / AWS / PythonAnywhere)
+Deploy to internet servers (Render / AWS / PythonAnywhere)
 
-✅ Improve UI with React or dashboard upgrades
+Improve UI with React or dashboard upgrades
 
 ---
 
-## 🏁 Sample Dataset (5 tasks)
+## Sample Dataset (5 tasks)
 
+```json
 [
   { 
     "title": "Build API", 
@@ -202,10 +203,11 @@ Even Top 3 suggestions are computed only from your local inputs
     "dependencies": [] 
   }
 ]
+```
 
 ---
-
-## © Built By
+<!-- 
+## Built By
 
 Gondhi Nesara
 
@@ -215,8 +217,8 @@ JSS Academy of Technical Education, Bengaluru
 
 For Singularium Internship Assessment 2025
 
----
+--- -->
 
-## 💌 Need Help?
+## Need Help?
 
 Feel free to open an issue or connect for improvements or deployment support!
